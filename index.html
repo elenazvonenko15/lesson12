@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+
+		const customBind = function (func, contextThis) {
+			const args = [...arguments];
+			const bindArguments = args.splice(2)
+
+			return function () {
+				return func.apply(contextThis, bindArguments.concat([...arguments]));
+			}
+
+		}
+
+
+		const user = {
+			name: 'Alex',
+			say(phrase) {
+		    return `${phrase}, ${this.name}`;
+		  }
+		};
+
+		console.log(user.say('Hello'));
+
+		const bindedFunc = customBind(user.say, {name: 'somebody'});
+
+		console.log(bindedFunc('Hello'));
+
+	</script>
+</body>
+</html>
